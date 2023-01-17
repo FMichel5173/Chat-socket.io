@@ -1,10 +1,14 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 
-function ChatFooter() {
+function ChatFooter({ socket }) {
   const [message, setMessage] = useState("");
 
   const handleSendMessage = (e) => {
     e.preventDefault();
+
+    socket.emit("newMessage", { content: message });
+
     setMessage("");
   };
 

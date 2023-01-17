@@ -1,7 +1,16 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function ChatBody() {
+function ChatBody({ socket }) {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    socket.on("messages", (messagesFromTheServer) => {
+      setMessages(messagesFromTheServer);
+    });
+  }, []);
+
   const navigate = useNavigate();
 
   const handleLeaveChat = () => {
@@ -24,6 +33,15 @@ function ChatBody() {
 
       {/* message envoyé par vous */}
       <div className="message__container">
+        {messages.map((message) => (
+          <div key={message.content} className="message__chats">
+            <p className="sender__name">You</p>
+            <div className="message__sender">
+              <p>{message.content}</p>
+            </div>
+          </div>
+        ))}
+
         <div className="message__chats">
           <p className="sender__name">You</p>
           <div className="message__sender">

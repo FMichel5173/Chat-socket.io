@@ -9,7 +9,7 @@ function ChatBar() {
         <h4 className="chat__header">ACTIVE USERS</h4>
         <div className="chat__users">
           {Array.from([1, 2, 3, 4], (e) => (
-            <p>User {e}</p>
+            <p key={e}>User {e}</p>
           ))}
         </div>
       </div>
